@@ -1,0 +1,25 @@
+import requests
+from bs4 import BeautifulSoup
+
+def scrape_sailboat_prices():
+    # URL of the SailboatListings.com page you want to scrape
+    url = "https://www.sailboatlistings.com/"
+    
+    # Send a GET request to the URL
+    response = requests.get(url)
+    
+    # Create a BeautifulSoup object to parse the HTML content
+    soup = BeautifulSoup(response.content, "html.parser")
+    
+    # Find all the sailboat listings on the page
+    listings = soup.find_all("div", class_="listing-details")
+    
+    # Iterate over each listing and extract the price
+    for listing in listings:
+        # Extract the price from the listing
+        price = listing.find("span", class_="price").text.strip()
+        
+        # Print the price
+        print(price)
+    
+scrape_sailboat_prices()
